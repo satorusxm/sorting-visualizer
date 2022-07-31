@@ -18,6 +18,8 @@ function start(sortingType, inputSize) {
         step = bubbleSort(arr);
     else if (sortingType == "insertion")
         step = insertionSort(arr);
+    else if (sortingType == "selection")
+        step = selectionSort(arr);
 
     let id = setInterval(() => {
         let finished = step();
@@ -148,6 +150,63 @@ function insertionSort(arr) {
 
             if (indLimit == 0)
                 sorted = true;
+        }
+
+        return sorted;
+    }
+
+    return step;
+}
+
+function selectionSort(srcArr) {
+    // Handles Selection sort, returns step function
+
+    const cnvSrc = document.createElement("canvas");  // Canvas for source array
+    const cnvTrg = document.createElement("canvas");  // Canvas for target array
+
+    for (const cnv of [cnvSrc, cnvTrg]) {
+        cnv.width = playgroundDiv.clientWidth;
+        cnv.height = (playgroundDiv.clientHeight / 2) - 5;
+
+        playgroundDiv.appendChild(cnv);
+    }
+
+    let targetArr = new Array(srcArr.length).fill(0);
+
+    let srcInd = 0;
+    let srcIndLimit = srcArr.length;
+    let tarInd = 0;
+    let tarIndLimit = targetArr.length;
+    let sorted = false;
+
+    function step() {
+        // Returns if sorting is complete
+        
+        if (sorted) return true;
+
+        let found = false;
+
+        if (targetArr[tarInd] > srcArr[srcInd]) {
+            targetArr = targetArr.slice(1, tarInd).concat([srcArr[srcInd]]).concat(targetArr.slice(tarInd));
+            found = true;
+        }
+
+        if (!found && tarInd == tarIndLimit - 1) {
+            targetArr = targetArr.slice(1).concat([srcArr[srcInd]]);
+            found = true;
+        }
+
+        drawArr(cnvSrc, srcArr, srcInd);
+        drawArr(cnvTrg, targetArr, tarInd);
+
+        if (found) {
+            tarInd = 0;
+            srcInd += 1;
+
+            if (srcInd == srcIndLimit)
+                sorted = true;
+        } else {
+            tarInd += 1;
         }
 
         return sorted;
