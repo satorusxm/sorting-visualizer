@@ -1,0 +1,7 @@
+#playground {
+    padding-top: 10px;
+}
+#playground canvas {
+    border-radius: 10px;
+    border: 2px #e6e6e6 solid;
+}

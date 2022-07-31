@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sorting Visualizer</title>
+        <link href="static/images/logo.png" rel="icon">
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+            }
+
+            * {
+                padding: 0;
+                margin: 0;
+            }
+
+            body {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                background-image: url("static/images/background-image.png");
+                background-repeat: repeat;
+                background-size: 8%;
+            }
+        </style>
+    </head>
+    <body>
+        <link href="static/css/portrait-warning.css" rel="stylesheet">
+        <div id="portrait-warning">
+            <img src="static/images/rotate.png" alt="">
+            <span>This website only supports landscape mode</span>
+        </div>
+
+        <link href="static/css/main.css" rel="stylesheet">
+        <div id="main">
+            <link href="static/css/sort-config.css" rel="stylesheet">
+            <div id="sort-config">
+                <div>
+                    <img src="static/images/logo.png" alt="">
+                    Sorting Visualizer
+                </div>
+                <div>
+                    <span>Sorting Type</span>
+                    <select id="sorting-type">
+                        <option selected>Bubble</option>
+                        <option>Insertion</option>
+                        <option>Selection</option>
+                    </select>
+                </div>
+                <div>
+                    <span>Input Size</span>
+                    <input id="input-size" type="range" min="10" max="200" value="50">
+                    <span id="input-size-display">50</span>
+                </div>
+                <div>
+                    <button id="start"></button>
+                </div>
+            </div>
+            <script src="static/js/sort-config.js"></script>
+            <link href="static/css/playground.css" rel="stylesheet">
+            <div id="playground"></div>
+            <script src="static/js/playground.js"></script>
+        </div>
+
+        <script>
+            function handleResize() {
+                const main = document.querySelector("#main");
+                const portraitWarning = document.querySelector("#portrait-warning");
+
+                if (window.innerHeight > window.innerWidth) {
+                    main.classList.remove("active");
+                    portraitWarning.classList.add("active");
+                } else {
+                    portraitWarning.classList.remove("active");
+                    main.classList.add("active");
+                }
+            }
+
+            window.addEventListener("resize", handleResize);
+
+            document.onreadystatechange = (e) => {
+                if (document.readyState == "complete")
+                    handleResize();
+            }
+        </script>
+    </body>
+</html>
