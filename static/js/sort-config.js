@@ -1,7 +1,7 @@
 const inputSizeInp = document.querySelector("#input-size");
 const inputSizeDisp = document.querySelector("#input-size-display");
 const startBtn = document.querySelector("#start");
-let stopFunction;
+let stopSorting = null;
 
 inputSizeInp.addEventListener("input", (e) => {
     inputSizeDisp.innerText = inputSizeInp.value;
@@ -10,14 +10,17 @@ inputSizeInp.addEventListener("input", (e) => {
 startBtn.addEventListener("click", (e) => {
     if (startBtn.classList.contains("running")) {
         // TODO: Stop sorting
-        if (stopFunction) stopFunction();
+        if (stopSorting != null)
+            stopSorting();
+        
+        stopSorting = null;
 
         startBtn.classList.remove("running");
     } else {
         const sortingType = document.querySelector("#sorting-type").value.toLowerCase();
         const inputSize = parseInt(inputSizeInp.value);
 
-        stopFunction = start(sortingType, inputSize);
+        stopSorting = start(sortingType, inputSize);
 
         startBtn.classList.add("running");
     }

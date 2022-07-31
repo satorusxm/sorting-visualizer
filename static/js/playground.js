@@ -1,4 +1,5 @@
 const playgroundDiv = document.querySelector("#playground");
+let sortingId = null;
 
 function start(sortingType, inputSize) {
     // Empty the playgroundDiv
@@ -21,15 +22,23 @@ function start(sortingType, inputSize) {
     else if (sortingType == "selection")
         step = selectionSort(arr);
 
-    let id = setInterval(() => {
+    let sortingId = setInterval(() => {
         let finished = step();
         if (finished) {
-            stopFunction = null;
+            clearInterval(sortingId);
+            sortingId = null;
             startBtn.classList.remove("running");
         }
     }, 1);
 
-    return () => {clearInterval(id)};
+    function stopSorting() {
+        if (sortingId != null) {
+            clearInterval(sortingId);
+            sortingId = null;
+        }
+    }
+
+    return stopSorting;
 }
 
 function drawArr(cnv, arr, cInd, mInd) {
