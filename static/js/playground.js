@@ -20,7 +20,7 @@ function genArr(sortingType, inputSize) {
     let arr = [];
 
     // for cycle sort, create a range from 1 to inputSize and shuffle it
-    if (sortingType == "cyclic") {
+    if (sortingType == "cycle") {
         for (let i = 1; i < inputSize + 1; ++i)
             arr.push(i  * 99 / inputSize);  // Transform i to lie between 0 and 100 (drawArr uses value of i as it's height)
         shuffle(arr);
@@ -51,8 +51,8 @@ function start(sortingType, inputSize, speed) {
         step = insertionSort(arr);
     else if (sortingType == "selection")
         step = selectionSort(arr);
-    else if (sortingType == "cyclic")
-        step = cyclicSort(arr);
+    else if (sortingType == "cycle")
+        step = cycleSort(arr);
 
     let sortingId = setInterval(() => {
         let finished = step();
@@ -258,7 +258,7 @@ function insertionSort(arr) {
     return step;
 }
 
-function cyclicSort(arr) {
+function cycleSort(arr) {
     // Handles Cyclic Sort, returns step function
 
     const cnv = document.createElement("canvas");
