@@ -45,14 +45,17 @@ function start(sortingType, inputSize, speed) {
     // Remove "generating array" from playground
     playgroundDiv.classList.remove("generating");
 
-    if (sortingType == "bubble")
-        step = bubbleSort(arr);
-    else if (sortingType == "insertion")
-        step = insertionSort(arr);
-    else if (sortingType == "selection")
-        step = selectionSort(arr);
-    else if (sortingType == "cycle")
-        step = cycleSort(arr);
+    const fns = {
+        bubble: bubbleSort,
+        insertion: insertionSort,
+        selection: selectionSort,
+        cycle: cycleSort,
+    }
+
+    const step = fns[sortingType](arr);
+
+    if (step === undefined)
+        return;
 
     let sortingId = setInterval(() => {
         let finished = step();
