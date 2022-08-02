@@ -1,6 +1,36 @@
 const playgroundDiv = document.querySelector("#playground");
 let sortingId = null;
 
+function shuffle(arr) {
+    // Shuffle an array
+
+    const len = arr.length;
+
+    for (let i = 0; i < len; ++i) {
+        let ind = Math.floor(Math.random() * len);
+        let temp = arr[i];
+
+        arr[i] = arr[ind];
+        arr[ind] = temp;
+    }
+}
+
+function genArr(sortingType, inputSize) {
+    // Generate a random array according to the given sorting type
+    let arr = [];
+
+    // for cycle sort, create a range from 1 to inputSize and shuffle it
+    if (sortingType == "cyclic") {
+        for (let i = 1; i < inputSize + 1; ++i)
+            arr.push(i  * 99 / inputSize);  // Transform i to lie between 0 and 100 (drawArr uses value of i as it's height)
+        shuffle(arr);
+    } else
+        for (let i = 0; i < inputSize; ++i)
+            arr.push(10 + Math.random() * 89);  // Push random numbers between 10 and 99
+    
+    return arr;
+}
+
 function start(sortingType, inputSize, speed) {
     // Empty the playgroundDiv
     playgroundDiv.innerHTML = "";
@@ -10,9 +40,7 @@ function start(sortingType, inputSize, speed) {
     // Show "Generating array" in playground
     playgroundDiv.classList.add("generating");
 
-    const arr = new Array();
-    for (let i = 0; i < inputSize; ++i)
-        arr.push(10 + Math.random() * 89);  // Push random numbers between 10 and 99
+    const arr = genArr(sortingType, inputSize);
 
     // Remove "generating array" from playground
     playgroundDiv.classList.remove("generating");
@@ -23,6 +51,8 @@ function start(sortingType, inputSize, speed) {
         step = insertionSort(arr);
     else if (sortingType == "selection")
         step = selectionSort(arr);
+    else if (sortingType == "cyclic")
+        step = cyclicSort(arr);
 
     let sortingId = setInterval(() => {
         let finished = step();
@@ -221,6 +251,51 @@ function insertionSort(arr) {
             if (j == jLimit)
                 sorted = true;
         } else i -= 1;
+
+        return sorted;
+    }
+
+    return step;
+}
+
+function cyclicSort(arr) {
+    // Handles Cyclic Sort, returns step function
+
+    const cnv = document.createElement("canvas");
+    cnv.width = playgroundDiv.clientWidth;
+    cnv.height = playgroundDiv.clientHeight;
+
+    playgroundDiv.appendChild(cnv);
+
+    drawArr(cnv, arr);
+
+    let i = 0;
+    const iLimit = arr.length;
+    let sorted = false;
+
+    function step() {
+        // Returns if sorting is complete or not
+
+        if (sorted) return true;
+        
+        // Undo the transform done in genArr() function and round the value to prevent
+        // occasional decimal errors like 4 becoming 4.0000000001 or something
+        const val = Math.round(arr[i] * iLimit / 99);
+        const targetInd = val - 1;
+
+        if (i == targetInd) {
+            i += 1;
+            drawArr(cnv, arr, i);
+        } else {
+            const temp = arr[targetInd];
+            arr[targetInd] = arr[i];
+            arr[i] = temp;
+
+            drawArr(cnv, arr, i, targetInd);
+        }
+
+        if (i == iLimit)
+            sorted = true;
 
         return sorted;
     }
