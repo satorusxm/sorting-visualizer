@@ -1,5 +1,9 @@
 #playground {
     padding-top: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
 }
 #playground canvas {
     border-radius: 10px;
