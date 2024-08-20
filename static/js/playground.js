@@ -1,7 +1,7 @@
 const playgroundDiv = document.querySelector("#playground");
 let sortingId = null;
 
-function start(sortingType, inputSize) {
+function start(sortingType, inputSize, speed) {
     // Empty the playgroundDiv
     playgroundDiv.innerHTML = "";
 
@@ -29,7 +29,7 @@ function start(sortingType, inputSize) {
             sortingId = null;
             startBtn.classList.remove("running");
         }
-    }, 1);
+    }, 100 / speed);
 
     function stopSorting() {
         if (sortingId != null) {
