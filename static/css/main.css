@@ -1,0 +1,11 @@
+#main {
+    display: none;
+    grid-template-rows: auto 1fr;
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+}
+
+#main.active {
+    display: grid;
+}

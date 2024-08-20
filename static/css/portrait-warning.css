@@ -1,0 +1,28 @@
+#portrait-warning {
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    --img-width: 100px;
+    --span-font-size: 20px;
+}
+
+#portrait-warning.active {
+    display: flex;
+}
+
+#portrait-warning img {
+    width: var(--img-width);
+    height: auto;
+}
+
+#portrait-warning span {
+    font-size: var(--span-font-size);
+}

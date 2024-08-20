@@ -1,0 +1,74 @@
+#sort-config {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 50px;
+}
+
+#sort-config div:first-child {
+    border-radius: 10px 0px 0px 10px;
+}
+
+#sort-config div:last-child {
+    border-radius: 0px 10px 10px 0px;
+    border-right: 2px #e6e6e6 solid
+}
+
+#sort-config div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    height: 50px;
+    background-color: white;
+    border-bottom: 2px #e6e6e6 solid;
+    border-top: 2px #e6e6e6 solid;
+
+    font-size: 120%;
+}
+
+#sort-config div span {
+    margin: 0 5px;
+}
+
+#sort-config div select {
+    font-size: inherit;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid rgb(23, 147, 230);
+}
+
+#start {
+    padding: 10px;
+    border: none;
+    background-color: rgb(23, 147, 230);
+    color: white;
+    border-radius: 10px;
+}
+#start:hover {
+    cursor: pointer;
+}
+#start:active {
+    background-color: black;
+    color: white;
+}
+#start::before {
+    content: "Start";
+}
+#start.running {
+    background-color: red;
+}
+#start.running:before {
+    content: "Stop";
+}
+
+#sort-config div:first-child {
+    font-size: 150%;
+    border-left: 2px #e6e6e6 solid;
+}
+
+#sort-config div:first-child img {
+    height: 35px;
+    margin-right: 5px;
+}
