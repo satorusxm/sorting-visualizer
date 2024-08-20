@@ -110,8 +110,8 @@ function bubbleSort(arr) {
     return step;
 }
 
-function insertionSort(arr) {
-    // Handles insertion sort, returns step function
+function selectionSort(arr) {
+    // Handles Selection sort, returns step function
 
     const cnv = document.createElement("canvas");
     cnv.width = playgroundDiv.clientWidth;
@@ -158,8 +158,8 @@ function insertionSort(arr) {
     return step;
 }
 
-function selectionSort(srcArr) {
-    // Handles Selection sort, returns step function
+function insertionSort(srcArr) {
+    // Handles Insertion sort, returns step function
 
     const cnvSrc = document.createElement("canvas");  // Canvas for source array
     const cnvTrg = document.createElement("canvas");  // Canvas for target array
