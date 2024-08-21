@@ -4,7 +4,18 @@
     flex-flow: column nowrap;
     justify-content: space-around;
     align-items: center;
+
+    font-size: 140%;
 }
+
+#playground:empty::before {
+    content: "Click 'Start' to start sorting";
+}
+
+#playground.generating {
+    content: "Generating array";
+}
+
 #playground canvas {
     border-radius: 10px;
     border: 2px #e6e6e6 solid;

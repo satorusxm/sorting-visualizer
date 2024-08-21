@@ -7,13 +7,15 @@ function start(sortingType, inputSize, speed) {
 
     // Generate Array
 
-    // TODO: Show "Generating array" in playground
+    // Show "Generating array" in playground
+    playgroundDiv.classList.add("generating");
 
     const arr = new Array();
     for (let i = 0; i < inputSize; ++i)
         arr.push(10 + Math.random() * 89);  // Push random numbers between 10 and 99
 
-    // TODO: Remove "generating array" from playground
+    // Remove "generating array" from playground
+    playgroundDiv.classList.remove("generating");
 
     if (sortingType == "bubble")
         step = bubbleSort(arr);
