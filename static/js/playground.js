@@ -60,10 +60,22 @@ function drawArr(cnv, arr, cInd, mInd) {
     for (let i = 0; i < len; ++i) {
         const height = arr[i];
 
-        if (cInd && i == cInd)
+        let special = false;
+        if (cInd && i == cInd) {
             cntxt.fillStyle = "#ff0000";
-        else if (mInd && i == mInd)
+            special = true;
+        }
+        else if (mInd && i == mInd) {
             cntxt.fillStyle = "#00ff00";
+            special = true;
+        }
+
+        if (special) {
+            let temp = cntxt.fillStyle;
+            cntxt.fillStyle = "#e6e6e6";
+            cntxt.fillRect(w(i * width), 0, w(width), h(100));
+            cntxt.fillStyle = temp;
+        }
         
         cntxt.fillRect(
             w(i * width),
@@ -72,7 +84,7 @@ function drawArr(cnv, arr, cInd, mInd) {
             h(height)
         );
 
-        if (cInd && i == cInd || mInd && i == mInd)
+        if (special)
             cntxt.fillStyle = "#1793e6";
     }
 }
