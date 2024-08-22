@@ -181,56 +181,46 @@ function selectionSort(arr) {
     return step;
 }
 
-function insertionSort(srcArr) {
+function insertionSort(arr) {
     // Handles Insertion sort, returns step function
 
-    const cnvSrc = document.createElement("canvas");  // Canvas for source array
-    const cnvTrg = document.createElement("canvas");  // Canvas for target array
+    const cnv = document.createElement("canvas");
+    cnv.width = playgroundDiv.clientWidth;
+    cnv.height = playgroundDiv.clientHeight;
 
-    for (const cnv of [cnvSrc, cnvTrg]) {
-        cnv.width = playgroundDiv.clientWidth;
-        cnv.height = (playgroundDiv.clientHeight / 2) - 5;
+    playgroundDiv.appendChild(cnv);
 
-        playgroundDiv.appendChild(cnv);
-    }
+    drawArr(cnv, arr);
 
-    let targetArr = new Array(srcArr.length).fill(0);
-
-    let srcInd = 0;
-    let srcIndLimit = srcArr.length;
-    let tarInd = 0;
-    let tarIndLimit = targetArr.length;
+    let i = 0;
+    let j = 1;
+    let jLimit = arr.length;
     let sorted = false;
 
     function step() {
-        // Returns if sorting is complete
-        
+        // Returns if array is sorted or not
+
         if (sorted) return true;
 
         let found = false;
 
-        if (targetArr[tarInd] > srcArr[srcInd]) {
-            targetArr = targetArr.slice(1, tarInd).concat([srcArr[srcInd]]).concat(targetArr.slice(tarInd));
+        if (arr[j] > arr[i]) {
+            arr = arr.slice(0, i + 1).concat([arr[j]]).concat(arr.slice(i + 1, j)).concat(arr.slice(j + 1));
+            found = true;
+        } else if (i == 0) {
+            arr = [arr[j]].concat(arr.slice(0, j)).concat(arr.slice(j + 1));
             found = true;
         }
 
-        if (!found && tarInd == tarIndLimit - 1) {
-            targetArr = targetArr.slice(1).concat([srcArr[srcInd]]);
-            found = true;
-        }
-
-        drawArr(cnvSrc, srcArr, srcInd);
-        drawArr(cnvTrg, targetArr, tarInd);
+        drawArr(cnv, arr, i, j);
 
         if (found) {
-            tarInd = 0;
-            srcInd += 1;
+            j += 1;
+            i = j - 1;
 
-            if (srcInd == srcIndLimit)
+            if (j == jLimit)
                 sorted = true;
-        } else {
-            tarInd += 1;
-        }
+        } else i -= 1;
 
         return sorted;
     }
