@@ -31,6 +31,14 @@ function genArr(sortingType, inputSize) {
     return arr;
 }
 
+function waitFor(n, result) {
+    // Returns a promise which resloves with given result after n milliseconds
+
+    return new Promise((res, rej) => {
+        setTimeout(res, n, result);
+    });
+}
+
 function start(sortingType, inputSize, speed) {
     // Empty the playgroundDiv
     playgroundDiv.innerHTML = "";
@@ -57,20 +65,33 @@ function start(sortingType, inputSize, speed) {
     if (step === undefined)
         return;
 
-    let sortingId = setInterval(() => {
-        let finished = step();
-        if (finished) {
-            clearInterval(sortingId);
-            sortingId = null;
-            startBtn.classList.remove("running");
-        }
-    }, 100 / speed);
+    // let sortingId = setInterval(() => {
+    //     let finished = step();
+    //     if (finished) {
+    //         clearInterval(sortingId);
+    //         sortingId = null;
+    //         startBtn.classList.remove("running");
+    //     }
+    // }, 100 / speed);
 
-    function stopSorting() {
-        if (sortingId != null) {
-            clearInterval(sortingId);
-            sortingId = null;
-        }
+    let running = true;
+    let sortingProcess = (async () => {
+        while (await waitFor(100 / speed, true) && running)
+            if (step()) {
+                startBtn.classList.remove("running");
+                break;
+            }
+    })();
+
+    // function stopSorting() {
+    //     if (sortingId != null) {
+    //         clearInterval(sortingId);
+    //         sortingId = null;
+    //     }
+    // }
+
+    stopSorting = () => {
+        running = false;
     }
 
     return stopSorting;
@@ -156,8 +177,10 @@ function bubbleSort(arr) {
             currentInd = 0;
             indLimit -= 1;
             
-            if (indLimit == 0)
+            if (indLimit == 0) {
+                drawArr(cnv, arr);
                 sorted = true;
+            }
         }
 
         return sorted;
@@ -204,8 +227,10 @@ function selectionSort(arr) {
             maxInd = 0;
             indLimit -= 1;
 
-            if (indLimit == 0)
+            if (indLimit == 0) {
+                drawArr(cnv, arr);
                 sorted = true;
+            }
         }
 
         return sorted;
@@ -251,8 +276,10 @@ function insertionSort(arr) {
             j += 1;
             i = j - 1;
 
-            if (j == jLimit)
+            if (j == jLimit) {
+                drawArr(cnv, arr);
                 sorted = true;
+            }
         } else i -= 1;
 
         return sorted;
@@ -297,8 +324,10 @@ function cycleSort(arr) {
             drawArr(cnv, arr, i, targetInd);
         }
 
-        if (i == iLimit)
+        if (i == iLimit) {
+            drawArr(cnv, arr);
             sorted = true;
+        }
 
         return sorted;
     }
