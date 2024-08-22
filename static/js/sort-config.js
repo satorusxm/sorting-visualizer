@@ -23,7 +23,7 @@ startBtn.addEventListener("click", (e) => {
 
         startBtn.classList.remove("running");
     } else {
-        const sortingType = document.querySelector("#sorting-type").value.toLowerCase();
+        const sortingType = document.querySelector("#sorting-type").value;
         const inputSize = parseInt(inputSizeInp.value);
         const speed = parseInt(speedInp.value);
 
