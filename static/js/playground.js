@@ -93,11 +93,11 @@ function drawArr(cnv, arr, cInd, mInd) {
         const height = arr[i];
 
         let special = false;
-        if (cInd && i == cInd) {
+        if (cInd != undefined && i == cInd) {
             cntxt.fillStyle = "#ff0000";
             special = true;
         }
-        else if (mInd && i == mInd) {
+        else if (mInd != undefined && i == mInd) {
             cntxt.fillStyle = "#00ff00";
             special = true;
         }
