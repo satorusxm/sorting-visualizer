@@ -4,4 +4,4 @@
 A website where you can visualize multiple sorting algorithms.  
 Created using HTML5, CSS3, Vanilla JavaScript  
   
-Hosted [here](https://satorusxm-sv.netlify.com)
+Hosted [here](https://satorusxm-sv.netlify.app)
